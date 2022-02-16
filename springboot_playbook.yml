@@ -1,0 +1,12 @@
+---
+- hosts: master
+  # become: yes
+  tasks:
+  - name: copy deployment file to kubernetes
+    copy:
+      src: springboot_CD.yml
+      dest: /home/ansadmin/
+  - name: delete previous deployment files
+    command: kubectl delete -f /home/ansadmin/springboot_CD.yml
+  - name: deploying to K8s
+    command: kubectl apply -f /home/ansadmin/springboot_CD.yml
